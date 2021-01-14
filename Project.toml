@@ -1,0 +1,9 @@
+name = "GenRedner"
+uuid = "5d3ec84e-6523-4828-bd6b-c4b38815cfbf"
+authors = ["Marco Cusumano-Towner <imarcoam@gmail.com>"]
+version = "0.1.0"
+
+[deps]
+Gen = "ea4f424c-a589-11e8-07c0-fd5c91b9da4a"
+GenPyTorch = "8570eaab-c4f5-4e49-9eb5-d3f5b81c13e5"
+PyCall = "438e738f-606a-5dbb-bf0a-cddfbfd45ab0"
