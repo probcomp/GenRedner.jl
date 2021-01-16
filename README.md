@@ -46,18 +46,22 @@ This coordinate frame is the same as the [3D camera coordinate frame used by Ope
 
 ## Example
 
-## Stochastic
+See `example.jl` for a script that sets up an example scene consisting of a background square and two foreground triangles, and renders the point cloud using Redner, and also fits the vertices of the scene to the observed point cloud using stochastic gradient descent, using a from 
 
 The Redner renderer computes the depth of a pixel by averaging the depth of continuous points inside the pixel.
 For pixels on edges of sillhouettes, the depth values are therefore averages of the foreground and background depths.
 Also, the Redner renderer is stochastic.
 For depth images, it estimates the depth value for a pixel by sampling points inside the pixel.
-Below are three depth images (left) produced by running the depth renderer on the same scene three times, and the point clouds produced by the renderer.
+Below are three depth images (left) produced by running the depth renderer on the same scene three times, and the point clouds produced by the renderer, with `num_samples=2`.
 The camera coordinate frame is shown (red is X axis, green is Y axis, and blue is Z axis):
 
 ![Three outputs of the depth renderer on the same input, which are slightly different because the renderer is stochastic](ground_truth.png)
 
+Note that when `num_samples=1`, there are no intermediate depth values. Each pixel is either the foreground or background planes:
 
+Below is an animation of stochastic gradient ascent for MAP estimation:
+
+![Animation of stochastic gradient descent for MAP estimation of triangle vertices](https://marcoct.s3.us-east-2.amazonaws.com/output.gif)
 
 ## Other outputs
 
