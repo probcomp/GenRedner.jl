@@ -6,7 +6,7 @@ Gen.jl wrapper for the [Redner differentiable renderer](https://github.com/Bachi
 
 The GenRedner module currently exports a one function:
 ```julia
-depth_renderer = GenRedner.get_depth_renderer(num_samples)
+depth_renderer = GenRedner.get_depth_renderer(;num_samples=1, print_timing=false)
 ```
 where `num_samples` is the number of samples that the renderer will user internally for rendering and for its internal gradient estimation.
 The returned value is a [generative function](https://www.gen.dev/dev/ref/gfi/#Generative-Functions-1) of concrete type `GenPyTorch.TorchGenerativeFunction`.
