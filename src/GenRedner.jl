@@ -3,22 +3,16 @@ module GenRedner
 using GenPyTorch; TorchGenerativeFunction, TorchArg
 using PyCall
 
-_depth_renderer = nothing
-
 # coordinate frame: https://learnopencv.com/wp-content/uploads/2020/02/world-camera-image-coordinates.png
 
-get_depth_renderer() = _depth_renderer::TorchGenerativeFunction
-
-export get_depth_renderer
-
-function __init__()
+function get_depth_renderer(;num_samples=4, print_timing=False)
 
 py"""
 import pyredner
 import torch
 import torch.nn as nn
 
-pyredner.set_print_timing(False)
+pyredner.set_print_timing($(print_timing))
 
 def construct_intrinsic_mat(intrinsics_vector, width, height):
     # see https://github.com/BachiLi/redner/blob/96d3e27cdd39129b1dc00e0271d3e27c0c5cec8f/pyredner/camera.py#L39-L50
@@ -42,8 +36,9 @@ def construct_intrinsic_mat(intrinsics_vector, width, height):
 
 class RednerDepthRenderer(torch.nn.Module):
     
-    def __init__(self):
+    def __init__(self, num_samples):
         super(RednerDepthRenderer, self).__init__()
+        self.num_samples = num_samples
 
     def forward(self, vertices, indices, intrinsics, dims):
 
@@ -72,13 +67,13 @@ class RednerDepthRenderer(torch.nn.Module):
         # return a width x height x 3 tensor of floats
         # the channels give x, y, and z coordinates in the 3D camera frame, respectively
         # so the third channel points[:,:,2] is the depth
-        points = pyredner.render_g_buffer(scene, [pyredner.channels.position])
+        points = pyredner.render_g_buffer(scene, [pyredner.channels.position], self.num_samples)
+        assert tuple(points.size()) == (height, width, 3)
         return points
 """
 
-global _depth_renderer
-_depth_renderer = TorchGenerativeFunction(
-    py"RednerDepthRenderer()", [
+    return TorchGenerativeFunction(
+    py"RednerDepthRenderer($(num_samples))", [
         TorchArg(true, py"torch.float"), # vertices
         TorchArg(false, py"torch.int"), # indices
         TorchArg(true, py"torch.float"), # intrinsics
@@ -87,5 +82,6 @@ _depth_renderer = TorchGenerativeFunction(
 
 end
 
+export get_depth_renderer
 
 end # module
