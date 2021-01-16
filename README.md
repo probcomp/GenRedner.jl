@@ -48,6 +48,17 @@ This coordinate frame is the same as the [3D camera coordinate frame used by Ope
 
 ## Stochastic
 
+The Redner renderer computes the depth of a pixel by averaging the depth of continuous points inside the pixel.
+For pixels on edges of sillhouettes, the depth values are therefore averages of the foreground and background depths.
+Also, the Redner renderer is stochastic.
+For depth images, it estimates the depth value for a pixel by sampling points inside the pixel.
+Below are three depth images (left) produced by running the depth renderer on the same scene three times, and the point clouds produced by the renderer.
+The camera coordinate frame is shown (red is X axis, green is Y axis, and blue is Z axis):
+
+![Three outputs of the depth renderer on the same input, which are slightly different because the renderer is stochastic](ground_truth.png)
+
+
+
 ## Other outputs
 
 The Redner differentiable renderer produces many more output channels, including various types of RGB rendering (including photorealistic rendering), and object masks.
