@@ -55,10 +55,10 @@ For depth images, it estimates the depth value for a pixel by sampling points in
 Below are three depth images (left) produced by running the depth renderer on the same scene three times, and the point clouds produced by the renderer, with `num_samples=2`.
 The camera coordinate frame is shown (red is X axis, green is Y axis, and blue is Z axis):
 
-![Three outputs of the depth renderer on the same input, which are slightly different because the renderer is stochastic](ground_truth.png)
+![Three outputs of the depth renderer on the same input, which are slightly different because the renderer is stochastic](forward.png)
 
 Note that when `num_samples=1`, there are no intermediate depth values. Each pixel is either the foreground or background planes:
-Below is an animation of stochastic gradient ascent for MAP estimation.
+Below is an animation of stochastic gradient ascent for MAP estimation:
 <img alt="Animation of stochastic gradient descent for MAP estimation of triangle vertices" src="https://marcoct.s3.us-east-2.amazonaws.com/output_small.gif" width="100%">
 
 ## Other outputs
