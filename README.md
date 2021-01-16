@@ -23,7 +23,7 @@ Arguments:
 
 - `dims` is a length-2 vector of integers of the form `[width, height]` where `width` is the number of rows in the resulting depth image and `height` is the number of columns.
 
-The return value is a 3D array of floating point values `points` with dimension `width` x `height` x 3, where `points[:,:,1]` contains the x-coordinates in the camera's 3D coordinate frame, `points[:,:,2]` contains the y-coordinates, and `points[:,:,3]` contains the z-coordinates (i.e. the depth image).
+The return value is a 3D array of floating point values `points` with dimension `height ` x `width` x 3, where `points[:,:,1]` contains the x-coordinates in the camera's 3D coordinate frame, `points[:,:,2]` contains the y-coordinates, and `points[:,:,3]` contains the z-coordinates (i.e. the depth image). The first row of the matrix has the highest y-coordinate (corresponding to the bottom row of pixels in the image).
 
 ## Forward rendering and gradients
 
@@ -35,6 +35,18 @@ The input vertices and the output point cloud both are in the camera's 3D coordi
 This coordinate frame is the same as the [3D camera coordinate frame used by OpenCV](https://docs.opencv.org/master/d9/d0c/group__calib3d.html#details) (the black coorinate frame in the image below):
 
 ![3 D camera model schematic from OpenCV](https://docs.opencv.org/master/pinhole_camera_model.png)
+
+## Installation
+
+1. Add this package to your Julia environment (e.g. using `add https://github.com/probcomp/GenRedner.jl` from the Julia package manager).
+
+2. Create a Python environment (e.g. using `virtualenv`) that has the `torch` Python package installed, and either `redner-gpu` or `redner` Python packages installed  (see [Redner](https://github.com/BachiLi/redner) for more details about setting up the Python environment).
+
+3. Build the `PyCall` package so that it points to the Python environment you created. See the [GenPyTorch documentation](https://probcomp.github.io/GenPyTorch.jl/dev/#Installation-1) and the [PyCall documentation](https://github.com/JuliaPy/PyCall.jl#specifying-the-python-version) for more details.
+
+## Example
+
+## Stochastic
 
 ## Other outputs
 
