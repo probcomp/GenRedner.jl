@@ -61,7 +61,7 @@ Note that when `num_samples=1`, there are no intermediate depth values. Each pix
 
 Below is an animation of stochastic gradient ascent for MAP estimation:
 
-![Animation of stochastic gradient descent for MAP estimation of triangle vertices](https://marcoct.s3.us-east-2.amazonaws.com/output.gif)
+<img alt="Animation of stochastic gradient descent for MAP estimation of triangle vertices" src="https://marcoct.s3.us-east-2.amazonaws.com/output_small.gif" width="100%">
 
 ## Other outputs
 
