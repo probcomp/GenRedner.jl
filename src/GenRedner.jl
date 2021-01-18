@@ -5,7 +5,7 @@ using PyCall
 
 # coordinate frame: https://learnopencv.com/wp-content/uploads/2020/02/world-camera-image-coordinates.png
 
-function get_depth_renderer(;num_samples=4, print_timing=False)
+function get_depth_renderer(;num_samples=4, print_timing=false)
 
 py"""
 import pyredner
