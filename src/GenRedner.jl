@@ -22,9 +22,9 @@ def construct_intrinsic_mat(intrinsics_vector, width, height):
     cx = intrinsics_vector[2:3]
     cy = intrinsics_vector[3:4]
     a = fx * 2 / width
-    b = fy * 2 / height
+    b = -fy * 2 / width
     x0 = (2 * cx / width) - 1
-    y0 = (2 * cy / height) - 1
+    y0 = -(2 * cy / width) + (height / width)
     zero = torch.zeros_like(a)
     one = torch.ones_like(a)
     skew = zero
@@ -64,7 +64,7 @@ class RednerDepthRenderer(torch.nn.Module):
 
         scene = pyredner.Scene(camera=camera, objects=objects)
 
-        # return a width x height x 3 tensor of floats
+        # return a height x width x 3 tensor of floats
         # the channels give x, y, and z coordinates in the 3D camera frame, respectively
         # so the third channel points[:,:,2] is the depth
         points = pyredner.render_g_buffer(scene, [pyredner.channels.position], self.num_samples)
